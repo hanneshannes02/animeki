@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-02T22:16:06.653Z",
+  "generatedAt": "2026-03-02T22:22:37.141Z",
   "criteria": {
     "year": 2026,
     "status": "currently_airing",
@@ -33,11 +33,7 @@
       "aggregateScore": 85.15,
       "malMembers": 71259,
       "popularity": 2916,
-      "links": {
-        "mal": "https://myanimelist.net/anime/58788/Ikoku_Nikki",
-        "anilist": "https://anilist.co/anime/177385",
-        "kitsu": "https://kitsu.io/anime/48830"
-      }
+      "watchUrl": "https://myanimelist.net/anime/58788/Ikoku_Nikki"
     },
     {
       "malId": 55830,
@@ -58,11 +54,7 @@
       "aggregateScore": 83.42,
       "malMembers": 135121,
       "popularity": 1909,
-      "links": {
-        "mal": "https://myanimelist.net/anime/55830/Fate_strange_Fake",
-        "anilist": "https://anilist.co/anime/166617",
-        "kitsu": "https://kitsu.io/anime/47682"
-      }
+      "watchUrl": "https://myanimelist.net/anime/55830/Fate_strange_Fake"
     },
     {
       "malId": 60371,
@@ -83,11 +75,7 @@
       "aggregateScore": 81.52,
       "malMembers": 115659,
       "popularity": 2146,
-      "links": {
-        "mal": "https://myanimelist.net/anime/60371/Seihantai_na_Kimi_to_Boku",
-        "anilist": "https://anilist.co/anime/184951",
-        "kitsu": "https://kitsu.io/anime/49372"
-      }
+      "watchUrl": "https://myanimelist.net/anime/60371/Seihantai_na_Kimi_to_Boku"
     },
     {
       "malId": 56009,
@@ -109,11 +97,7 @@
       "aggregateScore": 80.31,
       "malMembers": 227228,
       "popularity": 1225,
-      "links": {
-        "mal": "https://myanimelist.net/anime/56009/Yuusha-kei_ni_Shosu__Choubatsu_Yuusha_9004-tai_Keimu_Kiroku",
-        "anilist": "https://anilist.co/anime/167152",
-        "kitsu": "https://kitsu.io/anime/47759"
-      }
+      "watchUrl": "https://myanimelist.net/anime/56009/Yuusha-kei_ni_Shosu__Choubatsu_Yuusha_9004-tai_Keimu_Kiroku"
     },
     {
       "malId": 59047,
@@ -134,11 +118,7 @@
       "aggregateScore": 78.5,
       "malMembers": 65774,
       "popularity": 3048,
-      "links": {
-        "mal": "https://myanimelist.net/anime/59047/Tamon-kun_Ima_Docchi",
-        "anilist": "https://anilist.co/anime/178005",
-        "kitsu": "https://kitsu.io/anime/48944"
-      }
+      "watchUrl": "https://myanimelist.net/anime/59047/Tamon-kun_Ima_Docchi"
     },
     {
       "malId": 59711,
@@ -159,11 +139,7 @@
       "aggregateScore": 75.15,
       "malMembers": 79168,
       "popularity": 2729,
-      "links": {
-        "mal": "https://myanimelist.net/anime/59711/Shibou_Yuugi_de_Meshi_wo_Kuu",
-        "anilist": "https://anilist.co/anime/180746",
-        "kitsu": "https://kitsu.io/anime/50337"
-      }
+      "watchUrl": "https://myanimelist.net/anime/59711/Shibou_Yuugi_de_Meshi_wo_Kuu"
     },
     {
       "malId": 61211,
@@ -184,11 +160,7 @@
       "aggregateScore": 71.3,
       "malMembers": 59651,
       "popularity": 3217,
-      "links": {
-        "mal": "https://myanimelist.net/anime/61211/Mayonaka_Heart_Tune",
-        "anilist": "https://anilist.co/anime/187942",
-        "kitsu": "https://kitsu.io/anime/49680"
-      }
+      "watchUrl": "https://myanimelist.net/anime/61211/Mayonaka_Heart_Tune"
     },
     {
       "malId": 60151,
@@ -209,11 +181,7 @@
       "aggregateScore": 69.52,
       "malMembers": 39874,
       "popularity": 4016,
-      "links": {
-        "mal": "https://myanimelist.net/anime/60151/Eris_no_Seihai",
-        "anilist": "https://anilist.co/anime/183270",
-        "kitsu": "https://kitsu.io/anime/49296"
-      }
+      "watchUrl": "https://myanimelist.net/anime/60151/Eris_no_Seihai"
     },
     {
       "malId": 61128,
@@ -235,11 +203,7 @@
       "aggregateScore": 67.14,
       "malMembers": 78167,
       "popularity": 2758,
-      "links": {
-        "mal": "https://myanimelist.net/anime/61128/Yuusha_Party_wo_Oidasareta_Kiyoubinbou",
-        "anilist": "https://anilist.co/anime/187264",
-        "kitsu": "https://kitsu.io/anime/50423"
-      }
+      "watchUrl": "https://myanimelist.net/anime/61128/Yuusha_Party_wo_Oidasareta_Kiyoubinbou"
     },
     {
       "malId": 60810,
@@ -259,11 +223,7 @@
       "aggregateScore": 66.71,
       "malMembers": 46686,
       "popularity": 3693,
-      "links": {
-        "mal": "https://myanimelist.net/anime/60810/Majutsushi_Kunon_wa_Mieteiru",
-        "anilist": "https://anilist.co/anime/186333",
-        "kitsu": "https://kitsu.io/anime/50424"
-      }
+      "watchUrl": "https://myanimelist.net/anime/60810/Majutsushi_Kunon_wa_Mieteiru"
     }
   ]
 }

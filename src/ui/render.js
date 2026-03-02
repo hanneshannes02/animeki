@@ -16,7 +16,7 @@ function score(value, suffix = "") {
 
 function link(label, href) {
   if (!href) {
-    return `<span>${label}: N/A</span>`;
+    return `<span>${label}: nicht verfuegbar</span>`;
   }
   return `<a href="${href}" target="_blank" rel="noreferrer">${label}</a>`;
 }
@@ -58,9 +58,7 @@ export function renderAnimeCards(root, animeList) {
             </p>
             <p class="synopsis">${synopsis}</p>
             <div class="links">
-              ${link("MAL", anime.links?.mal)}
-              ${link("AniList", anime.links?.anilist)}
-              ${link("Kitsu", anime.links?.kitsu)}
+              ${link("Jetzt ansehen", anime.watchUrl)}
             </div>
           </div>
         </article>

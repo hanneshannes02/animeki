@@ -184,11 +184,12 @@ async function enrichTitle(anime) {
     aggregateScore,
     malMembers: toNumber(anime.members),
     popularity: toNumber(anime.popularity) ?? anilist.popularity,
-    links: {
-      mal: anime.url ?? null,
-      anilist: anilist.url,
-      kitsu: kitsu.url,
-    },
+    watchUrl:
+      anime.streaming?.[0]?.url ??
+      anime.url ??
+      anilist.url ??
+      kitsu.url ??
+      null,
   };
 }
 

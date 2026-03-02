@@ -16,7 +16,10 @@ async function initPage() {
     }
 
     const payload = await response.json();
-    const animeList = payload.items ?? [];
+    const animeList = (payload.items ?? []).map((item) => ({
+      ...item,
+      watchUrl: item.watchUrl ?? item.links?.mal ?? item.links?.anilist ?? item.links?.kitsu ?? null,
+    }));
     renderAnimeCards(grid, animeList);
     heroCount.textContent = String(animeList.length);
 
