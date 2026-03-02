@@ -25,6 +25,34 @@ export function clearGrid(root) {
   root.innerHTML = "";
 }
 
+export function renderTrending(root, animeList) {
+  const items = animeList.slice(0, 8);
+  if (items.length === 0) {
+    root.innerHTML = "";
+    return;
+  }
+
+  const html = items
+    .map((anime, index) => {
+      const title = escapeHtml(anime.title || "Unbekannter Titel");
+      const image = anime.images?.jpg?.image_url || "";
+      const score = getScore(anime);
+      return `
+        <article class="trend-card">
+          <img src="${image}" alt="${title}" loading="lazy" />
+          <div class="trend-overlay">
+            <span class="trend-rank">#${index + 1}</span>
+            <h3 title="${title}">${title}</h3>
+            <p>Score ${score}</p>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  root.innerHTML = html;
+}
+
 export function appendAnimeCards(root, animeList) {
   const html = animeList
     .map((anime) => {

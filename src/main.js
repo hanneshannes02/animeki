@@ -1,6 +1,11 @@
 import { fetchTopAnime, searchAnime } from "./api/jikan.js";
 import { state, resetState } from "./state/store.js";
-import { appendAnimeCards, clearGrid, renderStatus } from "./ui/render.js";
+import {
+  appendAnimeCards,
+  clearGrid,
+  renderStatus,
+  renderTrending,
+} from "./ui/render.js";
 
 const grid = document.querySelector("#animeGrid");
 const status = document.querySelector("#status");
@@ -8,6 +13,9 @@ const loadMoreButton = document.querySelector("#loadMoreButton");
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
 const resetButton = document.querySelector("#resetButton");
+const trendingStrip = document.querySelector("#trendingStrip");
+const heroTitle = document.querySelector("#heroTitle");
+const heroDescription = document.querySelector("#heroDescription");
 
 function setLoadMoreState() {
   loadMoreButton.disabled = state.loading || !state.hasNextPage;
@@ -36,12 +44,19 @@ async function loadCurrentPage() {
     state.items.push(...result.data);
     state.hasNextPage = result.hasNextPage;
     appendAnimeCards(grid, result.data);
+    renderTrending(trendingStrip, state.items);
     state.page += 1;
 
     if (state.items.length === 0) {
       renderStatus(status, "Keine Anime gefunden.", "warn");
+      heroTitle.textContent = "Keine Treffer";
+      heroDescription.textContent = "Bitte Suchbegriff oder Ansicht wechseln.";
     } else {
       renderStatus(status, `${state.items.length} Anime geladen`, "success");
+      heroTitle.textContent =
+        state.mode === "search" ? `Suche: ${state.query}` : "Top Anime";
+      heroDescription.textContent =
+        "Datenquelle: Jikan API. Nutze Suche und Mehr laden fuer weitere Inhalte.";
     }
   } catch (error) {
     renderStatus(
@@ -58,6 +73,7 @@ async function loadCurrentPage() {
 function resetView(nextState = {}) {
   resetState(nextState);
   clearGrid(grid);
+  renderTrending(trendingStrip, []);
   renderStatus(status, "Bereit", "info");
   setLoadMoreState();
 }

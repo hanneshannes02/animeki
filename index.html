@@ -4,34 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Animeki</title>
-    <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
-    <div class="background"></div>
-    <main class="app-shell">
-      <header class="hero">
-        <p class="eyebrow">Anime Explorer</p>
-        <h1>Animeki</h1>
-        <p class="subtitle">
-          Moderne Anime-Liste mit Suchfunktion. Als Basis zum spaeteren Ausbau.
-        </p>
-      </header>
+    <div class="bg-layer"></div>
+    <header class="topbar">
+      <div class="brand">ANIMEKI</div>
+      <nav class="topnav">
+        <a href="#list">Liste</a>
+        <a href="#trending">Trending</a>
+        <a href="#discover">Discover</a>
+      </nav>
+      <button class="ghost-btn" type="button">Login</button>
+    </header>
+
+    <main class="layout">
+      <section class="hero" id="discover">
+        <div class="hero-left">
+          <p class="hero-kicker">Watchlist Platform</p>
+          <h1>Anime entdecken wie auf einer Streaming-Startseite</h1>
+          <p>
+            Dunkles, modernes UI mit Live-Daten aus der Anime API. Fokus auf schnelle
+            Suche, klare Karten und viel Spielraum fuer neue Features.
+          </p>
+          <div class="hero-stats">
+            <span>Live API</span>
+            <span>Dark UI</span>
+            <span>Erweiterbar</span>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-card">
+            <p class="card-label">Now Browsing</p>
+            <h3 id="heroTitle">Top Anime</h3>
+            <p id="heroDescription">Lade aktuelle Liste...</p>
+          </div>
+        </div>
+      </section>
 
       <section class="controls">
         <form id="searchForm" class="search-form">
           <input
             id="searchInput"
             type="search"
-            placeholder="Suche nach Titel, z.B. Naruto"
+            placeholder="Titel suchen: Naruto, One Piece, Bleach..."
             autocomplete="off"
           />
           <button type="submit">Suchen</button>
         </form>
-        <button id="resetButton" class="secondary" type="button">Reset</button>
+        <button id="resetButton" class="secondary" type="button">Top Anime</button>
       </section>
 
       <section id="status" class="status" aria-live="polite"></section>
+
+      <section class="strip-wrap" id="trending">
+        <div class="section-head">
+          <h2>Trending jetzt</h2>
+          <span>Top 8 aus deiner aktuellen Ansicht</span>
+        </div>
+        <div id="trendingStrip" class="trending-strip"></div>
+      </section>
+
+      <section class="section-head" id="list">
+        <h2>Alle Anime (seitenweise)</h2>
+        <span>Automatisch aus API geladen</span>
+      </section>
       <section id="animeGrid" class="anime-grid"></section>
 
       <section class="load-more-wrap">
