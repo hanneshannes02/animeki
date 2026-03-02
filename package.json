@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "snapshot": "node scripts/generate-snapshot.mjs",
     "build": "vite build",
     "test": "echo \"No tests configured\""
   },

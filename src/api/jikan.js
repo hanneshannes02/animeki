@@ -44,25 +44,22 @@ async function fetchSeasonNowPages(maxPages = 3) {
   const all = [];
 
   for (let page = 1; page <= maxPages; page += 1) {
-    const payload = await fetchJson(`${JIKAN_BASE}/seasons/now?page=${page}&limit=25`);
-    all.push(...(payload.data ?? []));
+    try {
+      const payload = await fetchJson(`${JIKAN_BASE}/seasons/now?page=${page}&limit=25`);
+      all.push(...(payload.data ?? []));
 
-    if (!payload.pagination?.has_next_page) {
+      if (!payload.pagination?.has_next_page) {
+        break;
+      }
+    } catch {
+      if (page === 1) {
+        throw new Error("Season feed unavailable");
+      }
       break;
     }
   }
 
   return all;
-}
-
-async function hasPrequel(malId) {
-  try {
-    const payload = await fetchJson(`${JIKAN_BASE}/anime/${malId}/relations`);
-    const relations = payload.data ?? [];
-    return relations.some((entry) => String(entry.relation ?? "").toLowerCase() === "prequel");
-  } catch {
-    return false;
-  }
 }
 
 async function enrichAniList(title) {
@@ -196,7 +193,14 @@ async function enrichTitle(anime) {
 }
 
 export async function fetchTopFirstSeasonAiringAnime2026(limit = 10) {
-  const raw = await fetchSeasonNowPages(4);
+  let raw = [];
+  try {
+    raw = await fetchSeasonNowPages(4);
+  } catch {
+    const fallback = await fetchJson(`${JIKAN_BASE}/top/anime?filter=airing&limit=50`);
+    raw = fallback.data ?? [];
+  }
+
   const deduped = [];
   const seen = new Set();
 
@@ -215,16 +219,6 @@ export async function fetchTopFirstSeasonAiringAnime2026(limit = 10) {
       appearsToBeFirstSeason(anime),
   );
 
-  const withoutPrequels = [];
-  for (const anime of baseFiltered) {
-    // Sequential calls keep API pressure low and avoid random rate-limit spikes.
-    // eslint-disable-next-line no-await-in-loop
-    const prequelExists = await hasPrequel(anime.mal_id);
-    if (!prequelExists) {
-      withoutPrequels.push(anime);
-    }
-  }
-
-  const enriched = await Promise.all(withoutPrequels.map((anime) => enrichTitle(anime)));
+  const enriched = await Promise.all(baseFiltered.map((anime) => enrichTitle(anime)));
   return enriched.sort(byRank).slice(0, limit);
 }
