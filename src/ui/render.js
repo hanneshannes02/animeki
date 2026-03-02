@@ -7,11 +7,6 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function getGenres(anime) {
-  const genres = anime.genres?.map((genre) => genre.name) ?? [];
-  return genres.slice(0, 3).join(" • ") || "Ohne Genre";
-}
-
 function getScore(anime) {
   return anime.score ? anime.score.toFixed(1) : "N/A";
 }
@@ -25,25 +20,31 @@ export function clearGrid(root) {
   root.innerHTML = "";
 }
 
-export function renderTrending(root, animeList) {
-  const items = animeList.slice(0, 8);
-  if (items.length === 0) {
-    root.innerHTML = "";
-    return;
-  }
-
-  const html = items
+export function renderAnimeCards(root, animeList) {
+  const html = animeList
     .map((anime, index) => {
       const title = escapeHtml(anime.title || "Unbekannter Titel");
       const image = anime.images?.jpg?.image_url || "";
+      const episodes = anime.episodes ?? "?";
+      const year = anime.year ?? "N/A";
+      const genres = escapeHtml(
+        (anime.genres?.map((genre) => genre.name) ?? []).slice(0, 3).join(" / ") ||
+          "Ohne Genre",
+      );
       const score = getScore(anime);
+      const synopsis = escapeHtml(anime.synopsis || "Keine Beschreibung verfuegbar.");
+
       return `
-        <article class="trend-card">
-          <img src="${image}" alt="${title}" loading="lazy" />
-          <div class="trend-overlay">
-            <span class="trend-rank">#${index + 1}</span>
+        <article class="card">
+          <div class="poster-wrap">
+            <img class="poster" src="${image}" alt="Poster von ${title}" loading="lazy" />
+            <div class="badge">#${index + 1} • ${score}</div>
+          </div>
+          <div class="card-body">
             <h3 title="${title}">${title}</h3>
-            <p>Score ${score}</p>
+            <p class="meta">Jahr ${year} / Folgen ${episodes}</p>
+            <p class="genres">${genres}</p>
+            <p class="synopsis">${synopsis}</p>
           </div>
         </article>
       `;
@@ -51,33 +52,4 @@ export function renderTrending(root, animeList) {
     .join("");
 
   root.innerHTML = html;
-}
-
-export function appendAnimeCards(root, animeList) {
-  const html = animeList
-    .map((anime) => {
-      const title = escapeHtml(anime.title || "Unbekannter Titel");
-      const image = anime.images?.jpg?.image_url || "";
-      const episodes = anime.episodes ?? "?";
-      const year = anime.year ?? "N/A";
-      const genres = escapeHtml(getGenres(anime));
-      const score = getScore(anime);
-
-      return `
-        <article class="card">
-          <div class="poster-wrap">
-            <img class="poster" src="${image}" alt="Poster von ${title}" loading="lazy" />
-            <div class="badge">★ ${score}</div>
-          </div>
-          <div class="card-body">
-            <h3 title="${title}">${title}</h3>
-            <p class="meta">Jahr: ${year} • Folgen: ${episodes}</p>
-            <p class="genres">${genres}</p>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-
-  root.insertAdjacentHTML("beforeend", html);
 }

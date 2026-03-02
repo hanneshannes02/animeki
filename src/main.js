@@ -1,103 +1,38 @@
-import { fetchTopAnime, searchAnime } from "./api/jikan.js";
-import { state, resetState } from "./state/store.js";
-import {
-  appendAnimeCards,
-  clearGrid,
-  renderStatus,
-  renderTrending,
-} from "./ui/render.js";
+import { fetchTopAiringAnimeForYear } from "./api/jikan.js";
+import { clearGrid, renderAnimeCards, renderStatus } from "./ui/render.js";
+
+const TARGET_YEAR = 2026;
+const TARGET_LIMIT = 10;
 
 const grid = document.querySelector("#animeGrid");
 const status = document.querySelector("#status");
-const loadMoreButton = document.querySelector("#loadMoreButton");
-const searchForm = document.querySelector("#searchForm");
-const searchInput = document.querySelector("#searchInput");
-const resetButton = document.querySelector("#resetButton");
-const trendingStrip = document.querySelector("#trendingStrip");
-const heroTitle = document.querySelector("#heroTitle");
+const heroYear = document.querySelector("#heroYear");
+const heroCount = document.querySelector("#heroCount");
 const heroDescription = document.querySelector("#heroDescription");
 
-function setLoadMoreState() {
-  loadMoreButton.disabled = state.loading || !state.hasNextPage;
-  loadMoreButton.textContent = state.loading
-    ? "Lade..."
-    : state.hasNextPage
-      ? "Mehr laden"
-      : "Ende erreicht";
-}
-
-async function loadCurrentPage() {
-  if (state.loading || !state.hasNextPage) {
-    return;
-  }
-
-  state.loading = true;
-  setLoadMoreState();
-  renderStatus(status, "Lade Anime...", "info");
+async function initPage() {
+  clearGrid(grid);
+  renderStatus(status, "Lade Top 10 laufende Anime...", "info");
 
   try {
-    const result =
-      state.mode === "search"
-        ? await searchAnime(state.query, state.page)
-        : await fetchTopAnime(state.page);
+    const animeList = await fetchTopAiringAnimeForYear(TARGET_YEAR, TARGET_LIMIT);
+    renderAnimeCards(grid, animeList);
 
-    state.items.push(...result.data);
-    state.hasNextPage = result.hasNextPage;
-    appendAnimeCards(grid, result.data);
-    renderTrending(trendingStrip, state.items);
-    state.page += 1;
+    heroYear.textContent = String(TARGET_YEAR);
+    heroCount.textContent = String(animeList.length);
+    heroDescription.textContent =
+      "Sortiert nach Score, bei Gleichstand nach Popularitaet.";
 
-    if (state.items.length === 0) {
-      renderStatus(status, "Keine Anime gefunden.", "warn");
-      heroTitle.textContent = "Keine Treffer";
-      heroDescription.textContent = "Bitte Suchbegriff oder Ansicht wechseln.";
-    } else {
-      renderStatus(status, `${state.items.length} Anime geladen`, "success");
-      heroTitle.textContent =
-        state.mode === "search" ? `Suche: ${state.query}` : "Top Anime";
-      heroDescription.textContent =
-        "Datenquelle: Jikan API. Nutze Suche und Mehr laden fuer weitere Inhalte.";
+    if (animeList.length === 0) {
+      renderStatus(status, "Keine passenden laufenden Anime gefunden.", "warn");
+      return;
     }
+
+    renderStatus(status, `${animeList.length} Titel geladen`, "success");
   } catch (error) {
-    renderStatus(
-      status,
-      "Fehler beim Laden. Bitte kurz warten und erneut versuchen.",
-      "error",
-    );
-  } finally {
-    state.loading = false;
-    setLoadMoreState();
+    renderStatus(status, "Fehler beim Laden der Anime-Daten.", "error");
+    heroDescription.textContent = "API aktuell nicht erreichbar. Bitte spaeter erneut laden.";
   }
 }
 
-function resetView(nextState = {}) {
-  resetState(nextState);
-  clearGrid(grid);
-  renderTrending(trendingStrip, []);
-  renderStatus(status, "Bereit", "info");
-  setLoadMoreState();
-}
-
-searchForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const query = searchInput.value.trim();
-
-  if (!query) {
-    renderStatus(status, "Bitte einen Suchbegriff eingeben.", "warn");
-    return;
-  }
-
-  resetView({ mode: "search", query });
-  await loadCurrentPage();
-});
-
-resetButton.addEventListener("click", async () => {
-  searchInput.value = "";
-  resetView({ mode: "top" });
-  await loadCurrentPage();
-});
-
-loadMoreButton.addEventListener("click", loadCurrentPage);
-
-resetView({ mode: "top" });
-loadCurrentPage();
+initPage();

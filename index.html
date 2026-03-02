@@ -7,73 +7,31 @@
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
-    <div class="bg-layer"></div>
-    <header class="topbar">
-      <div class="brand">ANIMEKI</div>
-      <nav class="topnav">
-        <a href="#list">Liste</a>
-        <a href="#trending">Trending</a>
-        <a href="#discover">Discover</a>
-      </nav>
-      <button class="ghost-btn" type="button">Login</button>
-    </header>
-
-    <main class="layout">
-      <section class="hero" id="discover">
-        <div class="hero-left">
-          <p class="hero-kicker">Watchlist Platform</p>
-          <h1>Anime entdecken wie auf einer Streaming-Startseite</h1>
-          <p>
-            Dunkles, modernes UI mit Live-Daten aus der Anime API. Fokus auf schnelle
-            Suche, klare Karten und viel Spielraum fuer neue Features.
-          </p>
-          <div class="hero-stats">
-            <span>Live API</span>
-            <span>Dark UI</span>
-            <span>Erweiterbar</span>
-          </div>
+    <div class="bg"></div>
+    <main class="page">
+      <section class="hero">
+        <p class="kicker">Anime Ranking</p>
+        <h1>Top 10 laufende Anime 2026</h1>
+        <p class="sub" id="heroDescription">Lade Live-Daten aus der API...</p>
+        <div class="stats">
+          <article>
+            <span>Jahr</span>
+            <strong id="heroYear">2026</strong>
+          </article>
+          <article>
+            <span>Treffer</span>
+            <strong id="heroCount">0</strong>
+          </article>
+          <article>
+            <span>Quelle</span>
+            <strong>Jikan API</strong>
+          </article>
         </div>
-        <div class="hero-right">
-          <div class="hero-card">
-            <p class="card-label">Now Browsing</p>
-            <h3 id="heroTitle">Top Anime</h3>
-            <p id="heroDescription">Lade aktuelle Liste...</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="controls">
-        <form id="searchForm" class="search-form">
-          <input
-            id="searchInput"
-            type="search"
-            placeholder="Titel suchen: Naruto, One Piece, Bleach..."
-            autocomplete="off"
-          />
-          <button type="submit">Suchen</button>
-        </form>
-        <button id="resetButton" class="secondary" type="button">Top Anime</button>
       </section>
 
       <section id="status" class="status" aria-live="polite"></section>
-
-      <section class="strip-wrap" id="trending">
-        <div class="section-head">
-          <h2>Trending jetzt</h2>
-          <span>Top 8 aus deiner aktuellen Ansicht</span>
-        </div>
-        <div id="trendingStrip" class="trending-strip"></div>
-      </section>
-
-      <section class="section-head" id="list">
-        <h2>Alle Anime (seitenweise)</h2>
-        <span>Automatisch aus API geladen</span>
-      </section>
+      <h2 class="list-title">Ranking Liste</h2>
       <section id="animeGrid" class="anime-grid"></section>
-
-      <section class="load-more-wrap">
-        <button id="loadMoreButton" class="load-more" type="button">Mehr laden</button>
-      </section>
     </main>
 
     <script type="module" src="./src/main.js"></script>
