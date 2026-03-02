@@ -1,0 +1,230 @@
+:root {
+  --bg-0: #07090f;
+  --bg-1: #0f1526;
+  --bg-2: #171f35;
+  --text-0: #f3f5ff;
+  --text-1: #c2c8e2;
+  --accent: #2dd4bf;
+  --accent-2: #38bdf8;
+  --warn: #f59e0b;
+  --error: #ef4444;
+  --success: #22c55e;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --surface: rgba(14, 19, 35, 0.72);
+  --shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", "Noto Sans", sans-serif;
+  color: var(--text-0);
+  background: radial-gradient(circle at 15% 10%, #17253f 0%, #0a1021 35%, #05070d 100%);
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(45, 212, 191, 0.09), rgba(56, 189, 248, 0.08)),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 14px,
+      rgba(255, 255, 255, 0.015) 14px 15px
+    );
+  z-index: -1;
+}
+
+.app-shell {
+  width: min(1200px, 92vw);
+  margin: 2rem auto 3rem;
+}
+
+.hero h1 {
+  margin: 0.2rem 0 0;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  letter-spacing: 0.03em;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.74rem;
+}
+
+.subtitle {
+  color: var(--text-1);
+  max-width: 68ch;
+}
+
+.controls {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.search-form {
+  flex: 1 1 420px;
+  display: flex;
+  gap: 0.7rem;
+}
+
+input,
+button {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.75rem 0.95rem;
+  font: inherit;
+}
+
+input {
+  flex: 1;
+  background: rgba(12, 17, 32, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-0);
+}
+
+input:focus {
+  outline: 2px solid rgba(45, 212, 191, 0.35);
+}
+
+button {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #00101a;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-0);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status {
+  margin: 1rem 0 1.2rem;
+  color: var(--text-1);
+}
+
+.status.warn {
+  color: var(--warn);
+}
+
+.status.error {
+  color: var(--error);
+}
+
+.status.success {
+  color: var(--success);
+}
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+  transition: transform 140ms ease, border-color 140ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(45, 212, 191, 0.5);
+}
+
+.poster-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+  font-size: 0.8rem;
+}
+
+.card-body {
+  padding: 0.8rem 0.85rem 1rem;
+}
+
+.card-body h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.meta,
+.genres {
+  margin: 0.5rem 0 0;
+  color: var(--text-1);
+  font-size: 0.87rem;
+}
+
+.genres {
+  opacity: 0.9;
+}
+
+.load-more-wrap {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.load-more {
+  min-width: 200px;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    margin-top: 1.3rem;
+  }
+
+  .search-form {
+    flex-basis: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+}

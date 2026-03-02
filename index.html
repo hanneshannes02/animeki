@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animeki</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="background"></div>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">Anime Explorer</p>
+        <h1>Animeki</h1>
+        <p class="subtitle">
+          Moderne Anime-Liste mit Suchfunktion. Als Basis zum spaeteren Ausbau.
+        </p>
+      </header>
+
+      <section class="controls">
+        <form id="searchForm" class="search-form">
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Suche nach Titel, z.B. Naruto"
+            autocomplete="off"
+          />
+          <button type="submit">Suchen</button>
+        </form>
+        <button id="resetButton" class="secondary" type="button">Reset</button>
+      </section>
+
+      <section id="status" class="status" aria-live="polite"></section>
+      <section id="animeGrid" class="anime-grid"></section>
+
+      <section class="load-more-wrap">
+        <button id="loadMoreButton" class="load-more" type="button">Mehr laden</button>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
