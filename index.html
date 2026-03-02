@@ -7,19 +7,11 @@
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="header-inner">
-        <div class="brand-wrap">
-          <span class="brand">Anime2You</span>
-          <span class="brand-sub">Taeglich aktuelle Anime-News</span>
-        </div>
-        <nav class="main-nav" aria-label="Hauptnavigation">
-          <a href="#">Alle News</a>
-          <a href="#">Rankings</a>
-          <a href="#">Disc-Neuheiten</a>
-          <a href="#">Manga-Neuheiten</a>
-          <a href="#">TV-Guide</a>
-        </nav>
+    <div class="bg"></div>
+    <header class="topline">
+      <div class="topline-inner">
+        <span class="logo">ANIMEKI</span>
+        <span class="logo-sub">News Ranking</span>
       </div>
     </header>
 
@@ -27,114 +19,42 @@
       <article class="article">
         <header class="article-head">
           <p class="kicker">Japan | Ranking</p>
-          <h1>Niconico-Ranking: Top 10 meistgestreamte Anime im Winter 2026</h1>
-          <div class="article-meta">
-            <span>28. Februar 2026 um 20:45 Uhr</span>
-            <span>Von Mario Taschler</span>
-          </div>
-          <p class="sub">
-            Der japanische Streaming-Anbieter Niconico hat ein Ranking der aktuell gefragtesten
-            Titel veroeffentlicht. Hier ist die aufbereitete Top-10-Ansicht mit Zusatzdaten.
+          <h1>Top 10 laufende Erststaffel-Anime 2026</h1>
+          <p class="sub" id="heroDescription">
+            Aggregierte Rangliste aus mehreren Quellen mit Fokus auf neue Staffeln.
           </p>
           <div class="meta-row">
-            <span>Snapshot: <strong id="generatedAt">wird geladen</strong></span>
-            <span>Titel: <strong id="heroCount">0</strong></span>
-            <span>Daten: <strong>Jikan, AniList, Kitsu</strong></span>
+            <span>Stand: <strong id="generatedAt">wird geladen</strong></span>
+            <span>Eintraege: <strong id="heroCount">0</strong></span>
+            <span>Quelle: <strong>Jikan, AniList, Kitsu</strong></span>
           </div>
         </header>
 
-        <section class="copy">
-          <h2>Kaum Ueberraschungen</h2>
+        <section class="summary">
           <p>
-            Nach dem ABEMA-Ranking folgt mit Niconico ein weiterer grosser Anbieter aus Japan.
-            Auch hier zeigt sich ein sehr aehnliches Bild mit mehreren stark diskutierten
-            Mainstream-Produktionen an der Spitze.
-          </p>
-          <p id="heroDescription">
-            Die untenstehende Rangliste wird lokal aus einem Snapshot geladen und kombiniert
-            Bewertungsdaten mehrerer Plattformen in einer gemeinsamen Sortierung.
+            Diese Liste zeigt nur derzeit laufende Titel aus 2026, die keine offensichtliche
+            Fortsetzung sind. Die Rangfolge kombiniert Bewertungen mehrerer Plattformen.
           </p>
         </section>
 
         <section id="status" class="status" aria-live="polite"></section>
-        <section class="ranking-section">
-          <h2>Top 10 Winter-Anime 2026</h2>
-          <section id="animeGrid" class="anime-grid"></section>
-        </section>
-
-        <section class="more-topics">
-          <h2>Mehr zum Thema</h2>
-          <ul>
-            <li><a href="#">Neue Bilder zum One-Piece-Remake von Netflix</a></li>
-            <li><a href="#">Action vor Isekai: Top-Anime-Genres 2026 in Japan</a></li>
-            <li><a href="#">Kinostart weit entfernt: Naechster Demon-Slayer-Film nicht vor 2027</a></li>
-          </ul>
-        </section>
-
-        <section class="comments">
-          <h2>Diskutiere mit!</h2>
-          <article class="comment">
-            <header><strong>Ich</strong> <span>vor 2 Tagen</span></header>
-            <p>
-              JJK schaue ich nicht. Frieren gefaellt mir aber richtig gut, und Fate unterhaelt
-              mich ebenfalls.
-            </p>
-          </article>
-          <article class="comment">
-            <header><strong>Marcus Cyron</strong> <span>vor 1 Tag</span></header>
-            <p>Wow. Was fuer Enthuellungen!</p>
-          </article>
-          <article class="comment">
-            <header><strong>Mariabelle</strong> <span>vor 1 Tag</span></header>
-            <p>Kaya-chan Isn't Scary ist auch richtig gut, freut mich sehr.</p>
-          </article>
-        </section>
+        <section id="animeGrid" class="anime-grid"></section>
       </article>
 
-      <aside class="sidebar">
-        <section class="sidecard">
-          <h2>Newsticker</h2>
-          <ul class="ticker">
-            <li><a href="#">Kyoto-Animation-Praesident Hideaki Hatta mit 76 Jahren gestorben</a></li>
-            <li><a href="#">20 Blu-ray-Neuheiten ab sofort bei Amazon vorbestellbar</a></li>
-            <li><a href="#">Prime Video entfernt vier Anime-Titel aus seinem Katalog</a></li>
-            <li><a href="#">Neue Blu-ray-Box von Attack on Titan vorbestellbar</a></li>
-            <li><a href="#">Finaler Trailer zur zweiten One-Piece-Staffel von Netflix</a></li>
-          </ul>
-        </section>
-
-        <section class="sidecard">
-          <h2>So wird bewertet</h2>
-          <p>Gewichtete Gesamtwertung pro Titel:</p>
-          <ul>
-            <li>45% MAL/Jikan-Score</li>
-            <li>35% AniList-Score</li>
-            <li>20% Kitsu-Score</li>
-          </ul>
-          <p>Pro Titel wird nur ein einzelner Link angezeigt: <strong>Jetzt ansehen</strong>.</p>
-        </section>
-
-        <section class="sidecard">
-          <h2>Hinweis</h2>
-          <p>
-            Diese Demoseite ist im Stil einer News-Seite gebaut und enthaelt absichtlich keine
-            Werbebloecke.
-          </p>
-        </section>
+      <aside class="sidecard">
+        <h2>So wird bewertet</h2>
+        <p>Gewichtete Gesamtwertung pro Titel:</p>
+        <ul>
+          <li>45% MAL/Jikan-Score</li>
+          <li>35% AniList-Score</li>
+          <li>20% Kitsu-Score</li>
+        </ul>
+        <p>
+          Nur ein Link pro Eintrag:
+          <strong>Jetzt ansehen</strong>.
+        </p>
       </aside>
     </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <span>Anime2You - Taeglich aktuelle Anime-News</span>
-        <span>© 2013 - 2026 Anime2You GmbH</span>
-        <nav aria-label="Footer-Navigation">
-          <a href="#">Impressum</a>
-          <a href="#">Datenschutz</a>
-          <a href="#">Privacy Manager</a>
-        </nav>
-      </div>
-    </footer>
 
     <script type="module" src="./src/main.js"></script>
   </body>
