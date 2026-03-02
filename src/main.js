@@ -1,37 +1,32 @@
-import { fetchTopAiringAnimeForYear } from "./api/jikan.js";
+import { fetchTopFirstSeasonAiringAnime2026 } from "./api/jikan.js";
 import { clearGrid, renderAnimeCards, renderStatus } from "./ui/render.js";
-
-const TARGET_YEAR = 2026;
-const TARGET_LIMIT = 10;
 
 const grid = document.querySelector("#animeGrid");
 const status = document.querySelector("#status");
-const heroYear = document.querySelector("#heroYear");
 const heroCount = document.querySelector("#heroCount");
 const heroDescription = document.querySelector("#heroDescription");
 
 async function initPage() {
   clearGrid(grid);
-  renderStatus(status, "Lade Top 10 laufende Anime...", "info");
+  renderStatus(status, "Lade und aggregiere Daten aus mehreren Quellen...", "info");
 
   try {
-    const animeList = await fetchTopAiringAnimeForYear(TARGET_YEAR, TARGET_LIMIT);
+    const animeList = await fetchTopFirstSeasonAiringAnime2026(10);
     renderAnimeCards(grid, animeList);
-
-    heroYear.textContent = String(TARGET_YEAR);
     heroCount.textContent = String(animeList.length);
-    heroDescription.textContent =
-      "Sortiert nach Score, bei Gleichstand nach Popularitaet.";
 
     if (animeList.length === 0) {
-      renderStatus(status, "Keine passenden laufenden Anime gefunden.", "warn");
+      heroDescription.textContent = "Keine passenden Titel gefunden.";
+      renderStatus(status, "Keine First-Season Titel verfuegbar.", "warn");
       return;
     }
 
+    heroDescription.textContent =
+      "Ranking: 45% MAL Score, 35% AniList Score, 20% Kitsu Score.";
     renderStatus(status, `${animeList.length} Titel geladen`, "success");
-  } catch (error) {
-    renderStatus(status, "Fehler beim Laden der Anime-Daten.", "error");
-    heroDescription.textContent = "API aktuell nicht erreichbar. Bitte spaeter erneut laden.";
+  } catch {
+    heroDescription.textContent = "Datenquellen sind gerade nicht erreichbar.";
+    renderStatus(status, "Fehler beim Laden der Live-Daten.", "error");
   }
 }
 

@@ -1,42 +1,206 @@
-const BASE_URL = "https://api.jikan.moe/v4";
+const JIKAN_BASE = "https://api.jikan.moe/v4";
+const ANILIST_ENDPOINT = "https://graphql.anilist.co";
+const KITSU_BASE = "https://kitsu.io/api/edge";
 
-async function fetchJson(url) {
-  const response = await fetch(url);
+const SEQUEL_HINT_PATTERN =
+  /\b(season\s?\d+|s\d+|part\s?\d+|cour\s?\d+|2nd|3rd|4th|5th|ii|iii|iv|v|final season|the final|movie|ova|special)\b/i;
+
+async function fetchJson(url, options) {
+  const response = await fetch(url, options);
   if (!response.ok) {
-    throw new Error(`API Fehler: ${response.status}`);
+    throw new Error(`Request failed (${response.status})`);
   }
   return response.json();
+}
+
+function toNumber(value) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
 }
 
 function getStartYear(anime) {
   return anime.year ?? anime.aired?.prop?.from?.year ?? null;
 }
 
-function byRanking(a, b) {
-  const scoreA = a.score ?? 0;
-  const scoreB = b.score ?? 0;
-  if (scoreB !== scoreA) {
-    return scoreB - scoreA;
-  }
-  const popA = a.popularity ?? Number.MAX_SAFE_INTEGER;
-  const popB = b.popularity ?? Number.MAX_SAFE_INTEGER;
-  return popA - popB;
+function appearsToBeFirstSeason(anime) {
+  const allTitles = [
+    anime.title,
+    anime.title_english,
+    anime.title_japanese,
+    ...(anime.title_synonyms ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return !SEQUEL_HINT_PATTERN.test(allTitles);
 }
 
-export async function fetchTopAiringAnimeForYear(year = 2026, limit = 10) {
-  const seasonNowUrl = `${BASE_URL}/seasons/now?limit=25`;
-  const topAiringUrl = `${BASE_URL}/top/anime?filter=airing&limit=25`;
+function isCurrentlyAiring(anime) {
+  const status = String(anime.status ?? "").toLowerCase();
+  return status.includes("currently airing");
+}
 
-  const [seasonNowPayload, topAiringPayload] = await Promise.all([
-    fetchJson(seasonNowUrl),
-    fetchJson(topAiringUrl),
-  ]);
+async function fetchSeasonNowPages(maxPages = 3) {
+  const all = [];
 
-  const merged = [...(seasonNowPayload.data ?? []), ...(topAiringPayload.data ?? [])];
+  for (let page = 1; page <= maxPages; page += 1) {
+    const payload = await fetchJson(`${JIKAN_BASE}/seasons/now?page=${page}&limit=25`);
+    all.push(...(payload.data ?? []));
+
+    if (!payload.pagination?.has_next_page) {
+      break;
+    }
+  }
+
+  return all;
+}
+
+async function hasPrequel(malId) {
+  try {
+    const payload = await fetchJson(`${JIKAN_BASE}/anime/${malId}/relations`);
+    const relations = payload.data ?? [];
+    return relations.some((entry) => String(entry.relation ?? "").toLowerCase() === "prequel");
+  } catch {
+    return false;
+  }
+}
+
+async function enrichAniList(title) {
+  const query = `
+    query($search: String) {
+      Media(search: $search, type: ANIME) {
+        averageScore
+        popularity
+        siteUrl
+        genres
+        episodes
+        studios(isMain: true) {
+          nodes { name }
+        }
+      }
+    }
+  `;
+
+  try {
+    const payload = await fetchJson(ANILIST_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query, variables: { search: title } }),
+    });
+
+    const media = payload.data?.Media;
+    return {
+      score: toNumber(media?.averageScore),
+      popularity: toNumber(media?.popularity),
+      url: media?.siteUrl ?? null,
+      genres: media?.genres ?? [],
+      episodes: toNumber(media?.episodes),
+      studio: media?.studios?.nodes?.[0]?.name ?? null,
+    };
+  } catch {
+    return {
+      score: null,
+      popularity: null,
+      url: null,
+      genres: [],
+      episodes: null,
+      studio: null,
+    };
+  }
+}
+
+async function enrichKitsu(title) {
+  try {
+    const q = encodeURIComponent(title);
+    const payload = await fetchJson(
+      `${KITSU_BASE}/anime?filter[text]=${q}&page[limit]=1`,
+    );
+    const hit = payload.data?.[0]?.attributes;
+    const id = payload.data?.[0]?.id;
+    return {
+      score: toNumber(hit?.averageRating),
+      popularityRank: toNumber(hit?.popularityRank),
+      url: id ? `https://kitsu.io/anime/${id}` : null,
+    };
+  } catch {
+    return { score: null, popularityRank: null, url: null };
+  }
+}
+
+function weightedAggregate(malScore, anilistScore, kitsuScore) {
+  const parts = [];
+  if (Number.isFinite(malScore)) {
+    parts.push({ value: malScore * 10, weight: 0.45 });
+  }
+  if (Number.isFinite(anilistScore)) {
+    parts.push({ value: anilistScore, weight: 0.35 });
+  }
+  if (Number.isFinite(kitsuScore)) {
+    parts.push({ value: kitsuScore, weight: 0.2 });
+  }
+
+  if (parts.length === 0) {
+    return null;
+  }
+
+  const totalWeight = parts.reduce((sum, p) => sum + p.weight, 0);
+  const weighted = parts.reduce((sum, p) => sum + p.value * p.weight, 0) / totalWeight;
+  return Number(weighted.toFixed(2));
+}
+
+function byRank(a, b) {
+  const aggA = a.aggregateScore ?? -1;
+  const aggB = b.aggregateScore ?? -1;
+  if (aggB !== aggA) {
+    return aggB - aggA;
+  }
+
+  const malA = a.malMembers ?? 0;
+  const malB = b.malMembers ?? 0;
+  return malB - malA;
+}
+
+async function enrichTitle(anime) {
+  const title = anime.title_english || anime.title || "Unknown";
+  const [anilist, kitsu] = await Promise.all([enrichAniList(title), enrichKitsu(title)]);
+  const malScore = toNumber(anime.score);
+  const aggregateScore = weightedAggregate(malScore, anilist.score, kitsu.score);
+
+  const genres =
+    anime.genres?.map((genre) => genre.name) ??
+    anilist.genres ??
+    [];
+
+  return {
+    malId: anime.mal_id,
+    title,
+    titleNative: anime.title_japanese || null,
+    synopsis: anime.synopsis || null,
+    image: anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || "",
+    year: getStartYear(anime),
+    episodes: anime.episodes ?? anilist.episodes ?? null,
+    studio: anime.studios?.[0]?.name || anilist.studio || null,
+    genres: genres.slice(0, 4),
+    malScore,
+    anilistScore: anilist.score,
+    kitsuScore: kitsu.score,
+    aggregateScore,
+    malMembers: toNumber(anime.members),
+    popularity: toNumber(anime.popularity) ?? anilist.popularity,
+    links: {
+      mal: anime.url ?? null,
+      anilist: anilist.url,
+      kitsu: kitsu.url,
+    },
+  };
+}
+
+export async function fetchTopFirstSeasonAiringAnime2026(limit = 10) {
+  const raw = await fetchSeasonNowPages(4);
   const deduped = [];
   const seen = new Set();
 
-  for (const anime of merged) {
+  for (const anime of raw) {
     if (!anime?.mal_id || seen.has(anime.mal_id)) {
       continue;
     }
@@ -44,11 +208,23 @@ export async function fetchTopAiringAnimeForYear(year = 2026, limit = 10) {
     deduped.push(anime);
   }
 
-  const filtered = deduped.filter((anime) => {
-    const startYear = getStartYear(anime);
-    const status = String(anime.status ?? "").toLowerCase();
-    return startYear === year && status.includes("currently airing");
-  });
+  const baseFiltered = deduped.filter(
+    (anime) =>
+      getStartYear(anime) === 2026 &&
+      isCurrentlyAiring(anime) &&
+      appearsToBeFirstSeason(anime),
+  );
 
-  return filtered.sort(byRanking).slice(0, limit);
+  const withoutPrequels = [];
+  for (const anime of baseFiltered) {
+    // Sequential calls keep API pressure low and avoid random rate-limit spikes.
+    // eslint-disable-next-line no-await-in-loop
+    const prequelExists = await hasPrequel(anime.mal_id);
+    if (!prequelExists) {
+      withoutPrequels.push(anime);
+    }
+  }
+
+  const enriched = await Promise.all(withoutPrequels.map((anime) => enrichTitle(anime)));
+  return enriched.sort(byRank).slice(0, limit);
 }

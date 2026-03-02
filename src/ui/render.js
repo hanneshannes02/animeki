@@ -7,8 +7,18 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function getScore(anime) {
-  return anime.score ? anime.score.toFixed(1) : "N/A";
+function score(value, suffix = "") {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) {
+    return "N/A";
+  }
+  return `${Number(value).toFixed(1)}${suffix}`;
+}
+
+function link(label, href) {
+  if (!href) {
+    return `<span>${label}: N/A</span>`;
+  }
+  return `<a href="${href}" target="_blank" rel="noreferrer">${label}</a>`;
 }
 
 export function renderStatus(root, text, type = "info") {
@@ -24,27 +34,34 @@ export function renderAnimeCards(root, animeList) {
   const html = animeList
     .map((anime, index) => {
       const title = escapeHtml(anime.title || "Unbekannter Titel");
-      const image = anime.images?.jpg?.image_url || "";
-      const episodes = anime.episodes ?? "?";
-      const year = anime.year ?? "N/A";
-      const genres = escapeHtml(
-        (anime.genres?.map((genre) => genre.name) ?? []).slice(0, 3).join(" / ") ||
-          "Ohne Genre",
-      );
-      const score = getScore(anime);
+      const native = anime.titleNative ? escapeHtml(anime.titleNative) : null;
+      const genres = escapeHtml((anime.genres ?? []).join(" / ") || "Keine Genres");
       const synopsis = escapeHtml(anime.synopsis || "Keine Beschreibung verfuegbar.");
+      const studio = escapeHtml(anime.studio || "Unbekannt");
+      const year = anime.year ?? "N/A";
+      const episodes = anime.episodes ?? "N/A";
 
       return `
-        <article class="card">
+        <article class="card-row">
           <div class="poster-wrap">
-            <img class="poster" src="${image}" alt="Poster von ${title}" loading="lazy" />
-            <div class="badge">#${index + 1} • ${score}</div>
+            <img class="poster" src="${anime.image}" alt="${title}" loading="lazy" />
+            <div class="rank">#${index + 1}</div>
           </div>
           <div class="card-body">
-            <h3 title="${title}">${title}</h3>
-            <p class="meta">Jahr ${year} / Folgen ${episodes}</p>
+            <h3>${title}</h3>
+            ${native ? `<p class="native">${native}</p>` : ""}
+            <p class="meta">Jahr ${year} / Folgen ${episodes} / Studio ${studio}</p>
             <p class="genres">${genres}</p>
+            <p class="scores">
+              Gesamt ${score(anime.aggregateScore)} | MAL ${score(anime.malScore)} |
+              AniList ${score(anime.anilistScore)} | Kitsu ${score(anime.kitsuScore)}
+            </p>
             <p class="synopsis">${synopsis}</p>
+            <div class="links">
+              ${link("MAL", anime.links?.mal)}
+              ${link("AniList", anime.links?.anilist)}
+              ${link("Kitsu", anime.links?.kitsu)}
+            </div>
           </div>
         </article>
       `;

@@ -10,9 +10,11 @@
     <div class="bg"></div>
     <main class="page">
       <section class="hero">
-        <p class="kicker">Anime Ranking</p>
-        <h1>Top 10 laufende Anime 2026</h1>
-        <p class="sub" id="heroDescription">Lade Live-Daten aus der API...</p>
+        <p class="kicker">Live Ranking 2026</p>
+        <h1>Top 10 laufende First-Season Anime</h1>
+        <p class="sub" id="heroDescription">
+          Aggregiert aus MAL (Jikan), AniList und Kitsu. Sequels werden entfernt.
+        </p>
         <div class="stats">
           <article>
             <span>Jahr</span>
@@ -24,13 +26,13 @@
           </article>
           <article>
             <span>Quelle</span>
-            <strong>Jikan API</strong>
+            <strong>3 Datenquellen</strong>
           </article>
         </div>
       </section>
 
       <section id="status" class="status" aria-live="polite"></section>
-      <h2 class="list-title">Ranking Liste</h2>
+      <h2 class="list-title">Ranking Liste (je Titel eine Reihe)</h2>
       <section id="animeGrid" class="anime-grid"></section>
     </main>
 
