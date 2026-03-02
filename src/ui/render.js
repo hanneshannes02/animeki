@@ -9,7 +9,7 @@ function escapeHtml(value) {
 
 function score(value, suffix = "") {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
-    return "N/A";
+    return "k.A.";
   }
   return `${Number(value).toFixed(1)}${suffix}`;
 }
@@ -38,8 +38,8 @@ export function renderAnimeCards(root, animeList) {
       const genres = escapeHtml((anime.genres ?? []).join(" / ") || "Keine Genres");
       const synopsis = escapeHtml(anime.synopsis || "Keine Beschreibung verfuegbar.");
       const studio = escapeHtml(anime.studio || "Unbekannt");
-      const year = anime.year ?? "N/A";
-      const episodes = anime.episodes ?? "N/A";
+      const year = anime.year ?? "k.A.";
+      const episodes = anime.episodes ?? "k.A.";
 
       return `
         <article class="card-row">

@@ -4,6 +4,7 @@ const grid = document.querySelector("#animeGrid");
 const status = document.querySelector("#status");
 const heroCount = document.querySelector("#heroCount");
 const heroDescription = document.querySelector("#heroDescription");
+const generatedAt = document.querySelector("#generatedAt");
 
 async function initPage() {
   clearGrid(grid);
@@ -25,18 +26,21 @@ async function initPage() {
 
     if (animeList.length === 0) {
       heroDescription.textContent = "Keine passenden Titel gefunden.";
-      renderStatus(status, "Keine First-Season Titel verfuegbar.", "warn");
+      generatedAt.textContent = "kein Snapshot";
+      renderStatus(status, "Keine Erststaffel-Titel verfuegbar.", "warn");
       return;
     }
 
-    const generatedAt = payload.generatedAt
+    const generatedAtText = payload.generatedAt
       ? new Date(payload.generatedAt).toLocaleString("de-DE")
       : "unbekannt";
+    generatedAt.textContent = generatedAtText;
     heroDescription.textContent =
-      `Snapshot vom ${generatedAt}. Ranking: 45% MAL, 35% AniList, 20% Kitsu.`;
+      `Snapshot vom ${generatedAtText}. Ranking: 45% MAL, 35% AniList, 20% Kitsu.`;
     renderStatus(status, `${animeList.length} Titel aus lokaler Datei geladen`, "success");
   } catch {
     heroDescription.textContent = "Lokale Daten fehlen. Fuehre 'npm run snapshot' aus.";
+    generatedAt.textContent = "nicht verfuegbar";
     renderStatus(status, "Snapshot-Datei konnte nicht geladen werden.", "error");
   }
 }

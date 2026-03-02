@@ -8,32 +8,52 @@
   </head>
   <body>
     <div class="bg"></div>
-    <main class="page">
-      <section class="hero">
-        <p class="kicker">Live-Ranking 2026</p>
-        <h1>Top 10 laufende Erststaffel-Anime</h1>
-        <p class="sub" id="heroDescription">
-          Aggregiert aus MAL (Jikan), AniList und Kitsu. Sequels werden entfernt.
-        </p>
-        <div class="stats">
-          <article>
-            <span>Jahr</span>
-            <strong id="heroYear">2026</strong>
-          </article>
-          <article>
-            <span>Treffer</span>
-            <strong id="heroCount">0</strong>
-          </article>
-          <article>
-            <span>Quelle</span>
-            <strong>3 Datenquellen</strong>
-          </article>
-        </div>
-      </section>
+    <header class="topline">
+      <div class="topline-inner">
+        <span class="logo">ANIMEKI</span>
+        <span class="logo-sub">News Ranking</span>
+      </div>
+    </header>
 
-      <section id="status" class="status" aria-live="polite"></section>
-      <h2 class="list-title">Rangliste (je Titel eine Reihe)</h2>
-      <section id="animeGrid" class="anime-grid"></section>
+    <main class="page">
+      <article class="article">
+        <header class="article-head">
+          <p class="kicker">Japan | Ranking</p>
+          <h1>Top 10 laufende Erststaffel-Anime 2026</h1>
+          <p class="sub" id="heroDescription">
+            Aggregierte Rangliste aus mehreren Quellen mit Fokus auf neue Staffeln.
+          </p>
+          <div class="meta-row">
+            <span>Stand: <strong id="generatedAt">wird geladen</strong></span>
+            <span>Eintraege: <strong id="heroCount">0</strong></span>
+            <span>Quelle: <strong>Jikan, AniList, Kitsu</strong></span>
+          </div>
+        </header>
+
+        <section class="summary">
+          <p>
+            Diese Liste zeigt nur derzeit laufende Titel aus 2026, die keine offensichtliche
+            Fortsetzung sind. Die Rangfolge kombiniert Bewertungen mehrerer Plattformen.
+          </p>
+        </section>
+
+        <section id="status" class="status" aria-live="polite"></section>
+        <section id="animeGrid" class="anime-grid"></section>
+      </article>
+
+      <aside class="sidecard">
+        <h2>So wird bewertet</h2>
+        <p>Gewichtete Gesamtwertung pro Titel:</p>
+        <ul>
+          <li>45% MAL/Jikan-Score</li>
+          <li>35% AniList-Score</li>
+          <li>20% Kitsu-Score</li>
+        </ul>
+        <p>
+          Nur ein Link pro Eintrag:
+          <strong>Jetzt ansehen</strong>.
+        </p>
+      </aside>
     </main>
 
     <script type="module" src="./src/main.js"></script>
