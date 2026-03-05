@@ -1,11 +1,10 @@
 :root {
-  --bg: #070b16;
-  --panel: #0f1529;
-  --panel-2: #141d36;
-  --text: #ecf1ff;
-  --muted: #9cabcf;
-  --line: #283455;
-  --brand: #78d7ff;
+  --bg: #0a0f1d;
+  --panel: #121a2f;
+  --text: #eef2ff;
+  --muted: #a9b4d3;
+  --line: #273354;
+  --accent: #78d5ff;
 }
 
 * {
@@ -21,230 +20,164 @@ body {
 body {
   font-family: "Manrope", sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(900px 420px at 0% -5%, #1d2d5f, transparent 55%),
-    radial-gradient(900px 420px at 100% -5%, #3b1e66, transparent 55%),
-    var(--bg);
+  background: radial-gradient(900px 450px at 0% -10%, #1f2f5e, transparent 55%), var(--bg);
   line-height: 1.6;
 }
 
 .wrap {
-  width: min(1120px, 92vw);
+  width: min(1080px, 92vw);
   margin: 0 auto;
 }
 
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 30;
-  background: rgba(7, 11, 22, 0.78);
-  border-bottom: 1px solid rgba(97, 124, 191, 0.22);
-  backdrop-filter: blur(12px);
+  z-index: 20;
+  background: rgba(10, 15, 29, 0.82);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(120, 140, 190, 0.2);
 }
 
-.nav-wrap {
+.nav {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.85rem 0;
+  align-items: center;
+  padding: 0.8rem 0;
 }
 
-.brand {
+.logo {
   color: #fff;
   text-decoration: none;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.2px;
 }
 
-nav a {
-  color: #d4e2ff;
+.jump {
+  color: #dbe8ff;
   text-decoration: none;
-  margin-left: 1rem;
   font-weight: 600;
 }
 
 .hero {
   margin-top: 1rem;
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  min-height: 480px;
   border: 1px solid var(--line);
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-  min-height: 480px;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(95deg, rgba(5, 8, 17, 0.92) 0%, rgba(5, 8, 17, 0.52) 45%, rgba(5, 8, 17, 0.2) 100%),
-    linear-gradient(180deg, rgba(3, 6, 12, 0.1) 0%, rgba(3, 6, 12, 0.75) 100%);
-}
-
-.hero-content {
-  position: absolute;
-  left: 1.4rem;
-  bottom: 1.4rem;
-  width: min(700px, calc(100% - 2.8rem));
-}
-
-.eyebrow {
-  margin: 0;
-  color: var(--brand);
-  font-size: 0.88rem;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  font-family: "Space Grotesk", sans-serif;
-}
-
-h1 {
-  margin: 0.4rem 0 0.65rem;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-.hero-content p {
-  margin: 0;
-  color: #d5dff7;
-}
-
-.button {
-  margin-top: 1rem;
-  display: inline-block;
-  color: #061324;
-  background: linear-gradient(130deg, #72d8ff, #87e5ff);
-  padding: 0.75rem 1rem;
-  border-radius: 11px;
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.list-section {
-  margin-top: 1.8rem;
-}
-
-.list-section h2 {
-  margin: 0 0 0.9rem;
-}
-
-.anime-item {
-  margin: 0 0 1rem;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+  position: relative;
 }
 
-.anime-item img {
+.hero img {
   width: 100%;
   height: min(56vw, 420px);
   object-fit: cover;
   display: block;
 }
 
-.anime-item div {
-  padding: 1rem;
-}
-
-.anime-item span {
-  color: var(--brand);
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  font-family: "Space Grotesk", sans-serif;
-}
-
-.anime-item h3 {
-  margin: 0.2rem 0 0.4rem;
-  font-size: 1.3rem;
-}
-
-.anime-item p {
-  margin: 0;
-  color: #c8d3ef;
-}
-
-.info-card {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 15px;
-  border: 1px solid #3f3270;
-  background: linear-gradient(145deg, rgba(50, 31, 99, 0.65), rgba(15, 22, 41, 0.8));
-}
-
-.info-card h2 {
-  margin-top: 0;
-}
-
-.info-card ul {
-  margin: 0.5rem 0 0;
-  padding-left: 1.1rem;
-}
-
-.faq {
-  margin-top: 1.5rem;
-}
-
-.faq details {
-  margin: 0.7rem 0;
-  padding: 0.8rem 0.9rem;
+.hero-content {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.9rem;
   border-radius: 12px;
+  background: rgba(8, 12, 23, 0.72);
+}
+
+.kicker {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+h1 {
+  margin: 0.35rem 0;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.1;
+}
+
+.hero-content p {
+  margin: 0;
+  color: #d5ddf3;
+}
+
+.list {
+  margin-top: 1.4rem;
+}
+
+.list h2 {
+  margin-bottom: 0.8rem;
+}
+
+.card {
+  margin-bottom: 1rem;
   border: 1px solid var(--line);
-  background: rgba(13, 19, 36, 0.88);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--panel);
 }
 
-.faq summary {
-  font-weight: 700;
-  cursor: pointer;
+.card img {
+  width: 100%;
+  height: min(62vw, 420px);
+  object-fit: cover;
+  display: block;
 }
 
-.faq p {
+.card div {
+  padding: 0.95rem;
+}
+
+.card span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.card h3 {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 1.26rem;
+}
+
+.card p {
+  margin: 0;
   color: var(--muted);
 }
 
 .site-footer {
-  margin-top: 2rem;
-  border-top: 1px solid rgba(90, 112, 170, 0.3);
-  background: #070d1b;
+  margin-top: 1.8rem;
+  border-top: 1px solid rgba(98, 120, 175, 0.26);
 }
 
-.site-footer .wrap {
-  padding: 1rem 0 1.2rem;
+.foot {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 0.9rem;
+  gap: 0.8rem;
+  padding: 1rem 0 1.2rem;
 }
 
-.site-footer p {
+.foot p {
   margin: 0;
-  color: #c3d1ef;
+  color: #c4d0ee;
 }
 
-.site-footer a {
-  color: #d7e8ff;
+.foot a {
+  color: #dbe8ff;
 }
 
 @media (min-width: 860px) {
-  .anime-item {
+  .card {
     display: grid;
-    grid-template-columns: 360px 1fr;
+    grid-template-columns: 340px 1fr;
   }
 
-  .anime-item img {
+  .card img {
     height: 100%;
-    min-height: 220px;
+    min-height: 240px;
   }
 
-  .anime-item div {
+  .card div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -252,26 +185,11 @@ h1 {
 }
 
 @media (max-width: 760px) {
-  nav a {
-    margin-left: 0.55rem;
-    font-size: 0.9rem;
-  }
-
-  .hero {
-    min-height: 520px;
-  }
-
-  .hero-image {
-    min-height: 520px;
-  }
-
   .hero-content {
-    left: 1rem;
-    right: 1rem;
-    width: auto;
+    padding: 0.8rem;
   }
 
-  .site-footer .wrap {
+  .foot {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
