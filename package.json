@@ -5,6 +5,7 @@
   "description": "Node.js website: Anime aehnlich wie One Piece",
   "main": "server.js",
   "scripts": {
+    "build": "node -e \"console.log('No build step required for Express deployment')\"",
     "start": "node server.js",
     "dev": "node server.js"
   },
