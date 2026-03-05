@@ -13,40 +13,65 @@
   <meta property="og:description" content="<%= seo.description %>">
   <meta property="og:url" content="<%= seo.url %>">
   <meta property="og:image" content="<%= seo.image %>">
-  <meta name="theme-color" content="#0a0f1d">
+  <meta name="theme-color" content="#0b1020">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap nav">
+    <div class="wrap topbar">
       <a class="logo" href="/">AnimeKI</a>
-      <a class="jump" href="#liste">Top 10</a>
+      <nav aria-label="Hauptnavigation">
+        <a href="#top10">Top 10</a>
+        <a href="#kategorien">Kategorien</a>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
+  <main>
+    <section class="hero wrap">
       <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg" alt="One Piece Cover">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <p class="kicker">One Piece Vibe</p>
-        <h1>Anime aehnlich wie One Piece</h1>
-        <p>Eine klare Top-10-Liste mit grossen Bildern und kurzen Beschreibungen. Simpel, modern, dunkel und optimiert fuer Handy und PC.</p>
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Empfehlungsportal</p>
+        <h1>Anime &auml;hnlich wie One Piece</h1>
+        <p>Wenn du Abenteuer, Crew-Dynamik und lange Story-Arcs liebst, findest du hier die besten Alternativen im modernen Dark-Design.</p>
+        <form class="search" role="search" action="#top10" method="get">
+          <label for="q" class="sr-only">Anime suchen</label>
+          <input id="q" name="q" type="search" placeholder="z. B. Abenteuer, Crew, Fantasy">
+          <button type="submit">Entdecken</button>
+        </form>
       </div>
     </section>
 
-    <section id="liste" class="list">
-      <h2>Top 10 Empfehlungen</h2>
+    <section id="kategorien" class="wrap chips">
+      <span>Abenteuer</span>
+      <span>Crew-Dynamik</span>
+      <span>Weltaufbau</span>
+      <span>Lange Story-Arcs</span>
+      <span>Humor + Action</span>
+    </section>
+
+    <section id="top10" class="wrap list">
+      <div class="section-head">
+        <h2>Top 10 Anime mit One-Piece-Vibe</h2>
+        <p>Sortiert nach Abenteuerfaktor, Teamchemie und Arc-Qualit&auml;t.</p>
+      </div>
+
       <% animeList.forEach((anime) => { %>
-        <article class="card">
+        <article class="anime-card">
           <img src="<%= anime.image %>" alt="<%= anime.title %> Cover">
-          <div class="card-content">
+          <div class="anime-content">
             <p class="rank">#<%= anime.rank %></p>
             <h3><%= anime.title %></h3>
-            <p><%= anime.description %></p>
+            <p class="desc"><%= anime.description %></p>
+            <ul class="tags">
+              <% anime.genres.forEach((genre) => { %>
+                <li><%= genre %></li>
+              <% }); %>
+            </ul>
           </div>
         </article>
       <% }); %>
@@ -55,7 +80,7 @@
 
   <footer class="site-footer">
     <div class="wrap foot">
-      <p>(c) 2026 AnimeKI</p>
+      <p>© 2026 AnimeKI</p>
       <p><a href="/sitemap.xml">Sitemap</a> | <a href="/robots.txt">Robots</a></p>
     </div>
   </footer>
