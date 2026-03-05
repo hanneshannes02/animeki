@@ -1,0 +1,9 @@
+{
+  "name": "animeki-static",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static production website for AnimeKI",
+  "scripts": {
+    "build": "echo \"Static site - no build step required\""
+  }
+}
