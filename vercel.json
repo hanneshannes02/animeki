@@ -1,8 +1,0 @@
-{
-  "framework": null,
-  "installCommand": "echo \"No install step required\"",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".",
-  "cleanUrls": true,
-  "trailingSlash": false
-}

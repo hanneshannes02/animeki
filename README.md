@@ -1,18 +1,27 @@
-# AnimeKI
+# AnimeKI Node.js
 
-Production-ready static website (German, mobile-first) with a single SEO focus:
+Node.js/Express Webseite zum Thema:
 
-- `Anime wie One Piece`
-- Top-10 recommendation list with full editorial copy
+- Anime aehnlich wie One Piece
+- grosses Cover je Titel
+- kurze, starke Beschreibung je Anime
+- modernes Dark-Design fuer Mobile und Desktop
 
-## Deploy
+## Start
 
-Upload all files in this folder to your hosting root.
+```bash
+npm install
+npm start
+```
 
-## URLs
+Dann im Browser:
 
-- Main page: `index.html`
-- `robots.txt` and `sitemap.xml` are configured for:
-  `https://hanneshannes02.github.io/animeki/`
+`http://localhost:3000`
 
-If you move to another domain, update canonical URLs, robots sitemap URL, and `sitemap.xml`.
+## Struktur
+
+- `server.js` - Express Server + Route
+- `data/anime.js` - Top-10 Inhalte
+- `views/index.ejs` - HTML Template
+- `public/styles.css` - Design
+- `public/robots.txt` / `public/sitemap.xml` - SEO Basics

@@ -1,9 +1,15 @@
 {
-  "name": "animeki-static",
-  "private": true,
+  "name": "animeki-node",
   "version": "1.0.0",
-  "description": "Static production website for AnimeKI",
+  "private": true,
+  "description": "Node.js website: Anime aehnlich wie One Piece",
+  "main": "server.js",
   "scripts": {
-    "build": "echo \"Static site - no build step required\""
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
   }
 }

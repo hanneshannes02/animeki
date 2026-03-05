@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= seo.title %></title>
+  <meta name="description" content="<%= seo.description %>">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="<%= seo.url %>">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="<%= seo.title %>">
+  <meta property="og:description" content="<%= seo.description %>">
+  <meta property="og:url" content="<%= seo.url %>">
+  <meta property="og:image" content="<%= seo.image %>">
+  <meta name="theme-color" content="#0a0f1d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="logo" href="/">AnimeKI</a>
+      <a class="jump" href="#liste">Top 10</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-ELSYx3yMPcKM.jpg" alt="One Piece Cover">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="kicker">One Piece Vibe</p>
+        <h1>Anime aehnlich wie One Piece</h1>
+        <p>Eine klare Top-10-Liste mit grossen Bildern und kurzen Beschreibungen. Simpel, modern, dunkel und optimiert fuer Handy und PC.</p>
+      </div>
+    </section>
+
+    <section id="liste" class="list">
+      <h2>Top 10 Empfehlungen</h2>
+      <% animeList.forEach((anime) => { %>
+        <article class="card">
+          <img src="<%= anime.image %>" alt="<%= anime.title %> Cover">
+          <div class="card-content">
+            <p class="rank">#<%= anime.rank %></p>
+            <h3><%= anime.title %></h3>
+            <p><%= anime.description %></p>
+          </div>
+        </article>
+      <% }); %>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <p>(c) 2026 AnimeKI</p>
+      <p><a href="/sitemap.xml">Sitemap</a> | <a href="/robots.txt">Robots</a></p>
+    </div>
+  </footer>
+</body>
+</html>
