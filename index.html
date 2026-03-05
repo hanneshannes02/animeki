@@ -1,29 +1,164 @@
 <!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Animeki</title>
-    <link rel="stylesheet" href="./src/styles.css" />
-  </head>
-  <body>
-    <div class="bg"></div>
-    <header class="topbar">
-      <div class="topbar-inner">
-        <span class="logo">ANIMEKI</span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AnimeKI - Anime streamen, News, Kalender & Empfehlungen auf Deutsch</title>
+  <meta name="description" content="AnimeKI ist dein deutsches Anime-Portal: legale Streaming-Dienste, Anime-News, Saisonkalender 2026, Einsteiger-Guides und Empfehlungen.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://animeki.de/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="AnimeKI - Das deutsche Anime-Portal">
+  <meta property="og:description" content="Legales Streaming, News, Kalender und Anime-Guides in einer Seite.">
+  <meta property="og:url" content="https://animeki.de/">
+  <meta property="og:image" content="https://animeki.de/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AnimeKI - Das deutsche Anime-Portal">
+  <meta name="twitter:description" content="Anime streamen, News lesen, Saison planen.">
+  <meta name="theme-color" content="#ff6a3d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Organization",
+        "name":"AnimeKI",
+        "url":"https://animeki.de/",
+        "logo":"https://animeki.de/logo.png",
+        "sameAs":[
+          "https://www.crunchyroll.com/de",
+          "https://myanimelist.net/",
+          "https://anilist.co/"
+        ]
+      },
+      {
+        "@type":"WebSite",
+        "name":"AnimeKI",
+        "url":"https://animeki.de/",
+        "potentialAction":{
+          "@type":"SearchAction",
+          "target":"https://animeki.de/?q={search_term_string}",
+          "query-input":"required name=search_term_string"
+        }
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Wo kann ich Anime legal auf Deutsch streamen?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Legale Anbieter sind unter anderem Crunchyroll, Netflix und Prime Video. Bei Serien lohnt sich ein Vergleich nach Simulcast, Dub und Preis."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Wie finde ich neue Anime pro Saison?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Nutze einen Saisonkalender, filtere nach Genre und priorisiere Titel mit laufendem Simulcast."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Welche Anime-Webseiten sind unverzichtbar?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Für die meisten Fans sind Streaming, Datenbanken, News-Portale und Community-Seiten die wichtigsten Kategorien."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">AnimeKI</a>
+      <nav aria-label="Hauptnavigation">
+        <a href="/anime-webseiten-uebersicht.html">Webseiten</a>
+        <a href="/anime-streaming-deutschland.html">Streaming</a>
+        <a href="/anime-news-und-trends.html">News</a>
+        <a href="/anime-saisonkalender-2026.html">Kalender</a>
+        <a href="/anime-einstieg-guide.html">Guide</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <p class="eyebrow">Anime Portal Deutschland</p>
+      <h1>Anime streamen, entdecken und planen - alles auf Deutsch</h1>
+      <p class="hero-text">AnimeKI kombiniert die vier wichtigsten Suchintentionen in einer Plattform: legal streamen, News verfolgen, Saison-Highlights finden und als Einsteiger schnell starten.</p>
+      <form class="search" role="search" action="/" method="get">
+        <label for="q" class="sr-only">Suche</label>
+        <input id="q" name="q" type="search" placeholder="z. B. anime stream deutsch">
+        <button type="submit">Suchen</button>
+      </form>
+      <div class="hero-links">
+        <a class="chip" href="/anime-webseiten-uebersicht.html">Wichtigste Anime Webseiten</a>
+        <a class="chip" href="/anime-streaming-deutschland.html">Anime legal streamen</a>
+        <a class="chip" href="/anime-news-und-trends.html">Aktuelle Anime News</a>
+        <a class="chip" href="/anime-saisonkalender-2026.html">Saisonkalender 2026</a>
+        <a class="chip" href="/anime-einstieg-guide.html">Anime für Anfänger</a>
       </div>
-    </header>
+    </section>
 
-    <main class="page">
-      <section class="hero">
-        <p class="kicker">Anime Ranking 2026</p>
-        <h1>Top 10 laufende neue Anime</h1>
-        <p class="sub">Kompakte Liste der aktuell laufenden Titel.</p>
-      </section>
-      <section id="status" class="status" aria-live="polite"></section>
-      <section id="animeGrid" class="anime-grid"></section>
-    </main>
+    <section class="container cards" id="intent-cards" aria-label="Wichtige Anime-Bereiche">
+      <article class="card" data-keywords="beste anime webseiten anime seiten crunchyroll myanimelist anilist">
+        <h2><a href="/anime-webseiten-uebersicht.html">Wichtigste Anime-Webseiten</a></h2>
+        <p>Direkte Übersicht zu den wichtigsten Seiten für Streaming, Tracking, News und Community.</p>
+      </article>
+      <article class="card" data-keywords="anime stream deutsch legal crunchyroll netflix prime video">
+        <h2><a href="/anime-streaming-deutschland.html">Legale Streaming-Plattformen</a></h2>
+        <p>Vergleich von Preis, Simulcast, deutscher Synchronisation und Bibliothek für Deutschland.</p>
+      </article>
+      <article class="card" data-keywords="anime news deutschland trends neue staffel releases">
+        <h2><a href="/anime-news-und-trends.html">Anime News & Trends</a></h2>
+        <p>Was läuft gerade, welche Titel steigen, und welche Events solltest du nicht verpassen.</p>
+      </article>
+      <article class="card" data-keywords="anime saison kalender winter frühling sommer herbst 2026">
+        <h2><a href="/anime-saisonkalender-2026.html">Saisonkalender 2026</a></h2>
+        <p>Plane deine Watchlist pro Saison und finde neue Serien nach Genre und Veröffentlichung.</p>
+      </article>
+      <article class="card" data-keywords="anime guide anfaenger empfehlungen einsteiger">
+        <h2><a href="/anime-einstieg-guide.html">Einsteiger-Guide</a></h2>
+        <p>Klare Startpfade nach Genre: Action, Romance, Mystery, Isekai und Klassiker.</p>
+      </article>
+    </section>
 
-    <script type="module" src="./src/main.js"></script>
-  </body>
+    <section class="container faq" aria-label="Häufige Fragen">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Welche Anime-Webseiten braucht man wirklich?</summary>
+        <p>Die wichtigste Kombination: ein legaler Streaming-Dienst, eine Datenbank zum Tracken, ein News-Portal und ein Saisonkalender.</p>
+      </details>
+      <details>
+        <summary>Wie hilft mir AnimeKI bei SEO-freundlicher Suche?</summary>
+        <p>Alle Kernseiten sind thematisch gebündelt, intern verlinkt und mit klaren Überschriften, Metadaten und strukturierten Daten aufgebaut.</p>
+      </details>
+      <details>
+        <summary>Ist die Seite sofort veröffentlichbar?</summary>
+        <p>Ja. Das Projekt ist statisch und kann direkt auf Netlify, Vercel, GitHub Pages oder jedem Webspace gehostet werden.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 AnimeKI</p>
+      <p><a href="/sitemap.xml">Sitemap</a> · <a href="/robots.txt">Robots</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
